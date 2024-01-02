@@ -24,4 +24,14 @@ registerApplication({
   },
 });
 
+registerApplication({
+  name: "app3",
+  app: () => import("app3/HRMSModule"),
+  activeWhen: "/",
+  customProps: {
+    title: "App 3 running on host",
+    queryClient,
+  },
+});
+
 start();

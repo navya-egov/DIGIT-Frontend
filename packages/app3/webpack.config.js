@@ -30,7 +30,7 @@ module.exports = {
     modules: ["node_modules", path.resolve(__dirname, "src")],
   },
   devServer: {
-    port: "6002",
+    port: "6003",
     hot: false,
   },
   devtool: "source-map",
@@ -40,10 +40,10 @@ module.exports = {
       template: path.join(__dirname, "public", "index.html"),
     }),
     new ModuleFederationPlugin({
-      name: "app2",
+      name: "app3",
       filename: "remoteEntry.js",
       exposes: {
-        "./App": "./src/singleSpaEntry",
+        "./HRMSModule": "./src/singleSpaEntry",
       },
       shared: [
         //

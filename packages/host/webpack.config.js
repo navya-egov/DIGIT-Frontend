@@ -13,7 +13,7 @@ module.exports = {
     path: path.join(__dirname, "dist"),
   },
   devServer: {
-    port: 3000,
+    port: 7000,
     hot: false,
     historyApiFallback: true,
   },
@@ -25,8 +25,9 @@ module.exports = {
     new ModuleFederationPlugin({
       name: "host",
       remotes: {
-        app1: "app1@http://localhost:3001/remoteEntry.js",
-        app2: "app2@http://localhost:3002/remoteEntry.js",
+        app1: "app1@http://localhost:6001/remoteEntry.js",
+        app2: "app2@http://localhost:6002/remoteEntry.js",
+        app3: "app3@http://localhost:6003/remoteEntry.js",
       },
       shared: ["react-query"],
     }),
