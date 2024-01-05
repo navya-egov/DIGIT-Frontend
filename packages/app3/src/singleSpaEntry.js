@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import singleSpaReact from "single-spa-react";
 
-import { HRMSModule } from "./Module";
+import HRMSModule from "./Module";
 
 const appLifeCycles = singleSpaReact({
   React,

@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@egovernments/digit-ui-react-components": "1.5.22",
+    "@egovernments/digit-ui-libraries": "1.4.100",
     "date-fns": "2.28.0",
     "react": "17.0.2",
     "react-dom": "17.0.2",

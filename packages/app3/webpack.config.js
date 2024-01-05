@@ -47,10 +47,6 @@ module.exports = {
       },
       shared: [
         //
-        "react-dom",
-        "react-query",
-        "react",
-        "single-spa-react",
       ],
     }),
   ],

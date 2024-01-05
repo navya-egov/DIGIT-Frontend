@@ -23,8 +23,12 @@ import Inbox from "./pages/Inbox";
 import Response from "./pages/Response";
 import { Example } from "@demo/shared";
 import { QueryClientProvider } from "react-query";
+// import { initLibraries } from "@egovernments/digit-ui-libraries";
 
-export const HRMSModule = ({ stateCode, userType, tenants, queryClient }) => {
+{
+  /* <hrmsmodule props></hrmsmodule>; */
+}
+const HRMSModule = ({ stateCode, userType, tenants, queryClient }) => {
   const moduleCode = "HR";
   const language = Digit.StoreData.getCurrentLanguage();
   const { isLoading, data: store } = Digit.Services.useStore({
@@ -32,7 +36,10 @@ export const HRMSModule = ({ stateCode, userType, tenants, queryClient }) => {
     moduleCode,
     language,
   });
-
+  // initLibraries().then(() => {
+  //   initDigitUI();
+  //   initHRMSComponents();
+  // });
   Digit.SessionStorage.set("HRMS_TENANTS", tenants);
   const { path, url } = useRouteMatch();
   if (!Digit.Utils.hrmsAccess()) {
@@ -42,7 +49,7 @@ export const HRMSModule = ({ stateCode, userType, tenants, queryClient }) => {
     return (
       <QueryClientProvider client={queryClient}>
         <EmployeeApp path={path} url={url} />
-        <Example />
+        {/* <Example /> */}
       </QueryClientProvider>
     );
   } else return null;
@@ -77,3 +84,29 @@ export const initHRMSComponents = () => {
     Digit.ComponentRegistryService.setComponent(key, value);
   });
 };
+// const initDigitUI = () => {
+//   window.contextPath =
+//     window?.globalConfigs?.getConfig("CONTEXT_PATH") || "digit-ui";
+//   window.Digit.Customizations = {};
+//   window?.Digit.ComponentRegistryService.setupRegistry({
+//     // PaymentModule,
+//     // ...paymentConfigs,
+//     // PaymentLinks,
+//   });
+
+//   // initHRMSComponents();
+//   const enabledModules = ["PT"];
+
+//   const moduleReducers = (initData) => initData;
+
+//   const stateCode =
+//     window?.globalConfigs?.getConfig("STATE_LEVEL_TENANT_ID") || "pb";
+//   // initTokens(stateCode);
+
+//   // return (<DigitUI stateCode={stateCode} enabledModules={enabledModules}       defaultLanding="employee"  moduleReducers={moduleReducers} />);
+// };
+
+// add a default export
+// wrppre comp
+
+export default HRMSModule;

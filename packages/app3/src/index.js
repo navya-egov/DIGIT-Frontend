@@ -2,7 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import { QueryClient } from "react-query";
 
-import { HRMSModule } from "./Module";
+import HRMSModule from "./Module";
 
 const c = new QueryClient();
 
