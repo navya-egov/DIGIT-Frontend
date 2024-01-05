@@ -29,7 +29,7 @@ module.exports = {
         app2: "app2@http://localhost:6002/remoteEntry.js",
         app3: "app3@http://localhost:6003/remoteEntry.js",
       },
-      shared: ["react-query"],
+      // shared: ["react-query"],
     }),
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public", "index.html"),

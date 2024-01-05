@@ -24,7 +24,7 @@ import Response from "./pages/Response";
 import { Example } from "@demo/shared";
 import { QueryClientProvider } from "react-query";
 // import { initLibraries } from "@egovernments/digit-ui-libraries";
-
+// import HRMSWrapper from "./ModuleWrapper";
 {
   /* <hrmsmodule props></hrmsmodule>; */
 }
