@@ -1,13 +1,14 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import singleSpaReact from "single-spa-react";
-
 import HRMSWrapper from "./ModuleWrapper";
+import Dummy from "./Dummy";
 
+// singleSpaReact.millis(1000000000);
 const appLifeCycles = singleSpaReact({
   React,
   ReactDOM,
-  rootComponent: HRMSWrapper,
+  rootComponent: Dummy,
   errorBoundary() {
     // https://reactjs.org/docs/error-boundaries.html
     return <div>This renders when a catastrophic error occurs</div>;

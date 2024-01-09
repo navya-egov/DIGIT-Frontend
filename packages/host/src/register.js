@@ -1,7 +1,12 @@
-import { registerApplication, start } from "single-spa";
+import * as singleSpa from "single-spa";
+// import { registerApplication, start } from "single-spa";
 
 import { QueryClient } from "react-query";
-
+import { initLibraries } from "@egovernments/digit-ui-libraries";
+const { registerApplication, start } = singleSpa;
+singleSpa.setUnloadMaxTime(100000, true);
+singleSpa.setBootstrapMaxTime(1000000, true);
+initLibraries();
 const queryClient = new QueryClient();
 
 registerApplication({
