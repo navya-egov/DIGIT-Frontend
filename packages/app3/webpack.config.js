@@ -43,7 +43,7 @@ module.exports = {
       name: "app3",
       filename: "remoteEntry.js",
       exposes: {
-        "./HRMSWrapper": "./src/singleSpaEntry",
+        "./App": "./src/singleSpaEntry",
       },
       shared: [
         //

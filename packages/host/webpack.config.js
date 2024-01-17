@@ -31,6 +31,7 @@ module.exports = {
       },
       // shared: ["react-query"],
     }),
+
     new HtmlWebpackPlugin({
       template: path.join(__dirname, "public", "index.html"),
     }),

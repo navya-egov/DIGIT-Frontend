@@ -31,7 +31,7 @@ registerApplication({
 
 registerApplication({
   name: "app3",
-  app: () => import("app3/HRMSWrapper"),
+  app: () => import("app3/App"),
   activeWhen: "/",
   customProps: {
     title: "App 3 running on host",
