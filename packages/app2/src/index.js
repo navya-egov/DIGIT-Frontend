@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { QueryClient } from "react-query";
 import HRMSWrapper from "./ModuleWrapper";
 import { initLibraries } from "@egovernments/digit-ui-libraries";
+import { BrowserRouter as Router } from "react-router-dom";
 import Dummy from "./Dummy";
 initLibraries();
 const c = new QueryClient();
@@ -11,11 +12,14 @@ const userType = "employee";
 const tenants = "";
 
 ReactDOM.render(
-  <HRMSWrapper
-    stateCode={stateCode}
-    userType={userType}
-    tenants={tenants}
-    queryClient={c}
-  />,
+  <Router>
+    <HRMSWrapper
+      stateCode={stateCode}
+      userType={userType}
+      tenants={tenants}
+      queryClient={c}
+    />
+    ,
+  </Router>,
   document.getElementById("app")
 );

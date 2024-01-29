@@ -2,8 +2,12 @@
 import React, { useEffect } from "react";
 import { useTranslation } from "react-i18next";
 import { Link, Switch, useLocation } from "react-router-dom";
+import { PrivateRoute } from "../components/react-components/src/atoms/PrivateRoute";
+
 
 const EmployeeApp = ({ path, url, tenantId, userType }) => {
+
+
   const { t } = useTranslation();
   // const location = useLocation();        //Cannot read properties of undefined (reading 'location')
   const mobileView = innerWidth <= 640;
@@ -13,7 +17,7 @@ const EmployeeApp = ({ path, url, tenantId, userType }) => {
       tenantId: tenantId,
     },
   };
-
+  // debugger;
   const HRMSResponse =
     Digit?.ComponentRegistryService?.getComponent("HRMSResponse");
   const HRMSDetails =
@@ -79,11 +83,11 @@ const EmployeeApp = ({ path, url, tenantId, userType }) => {
         />
         */}
       {/* </div> */}
-      {/* <PrivateRoute
+      <PrivateRoute
         path={`${path}/create`}
         component={() => <CreateEmployee />}
-      />
-      <PrivateRoute
+      /> 
+      {/*<PrivateRoute
         path={`${path}/response`}
         component={(props) => <HRMSResponse {...props} parentRoute={path} />}
       />

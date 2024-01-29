@@ -22,7 +22,6 @@ import { useRouteMatch } from "react-router-dom";
 // import Inbox from "./pages/Inbox";
 // import Response from "./pages/Response";
 import { Example } from "@demo/shared";
-import { QueryClientProvider } from "react-query";
 // import HRMSWrapper from "./ModuleWrapper";
 import EmployeeApp from "./pages";
 {
@@ -46,12 +45,11 @@ export const HRMSModule = ({ stateCode, userType, tenants, queryClient }) => {
   // }
   // if (userType === "employee") {
   return (
-    <QueryClientProvider client={queryClient}>
-      {/* <EmployeeApp path={"hrms"} url={"hrms"} /> */}
-      <div>test HRMS</div>
+     /* <EmployeeApp path={"hrms"} url={"hrms"} /> */
+      <div>test HRMS
       <EmployeeApp />
       {/* <Example /> */}
-    </QueryClientProvider>
+      </div>
   );
   // } else return null;
 };
