@@ -31,7 +31,7 @@ module.exports = {
     modules: [path.resolve(__dirname, "src"), "node_modules"],
   },
   devServer: {
-    port: "6002",
+    port: "6005",
     hot: false,
   },
   devtool: "source-map",

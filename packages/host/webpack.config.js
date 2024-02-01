@@ -13,7 +13,7 @@ module.exports = {
     path: path.join(__dirname, "dist"),
   },
   devServer: {
-    port: 7000,
+    port: 7001,
     hot: false,
     historyApiFallback: true,
   },

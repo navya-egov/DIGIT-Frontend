@@ -3,13 +3,17 @@ import React, { useEffect, useRef, useState } from "react";
 import { ArrowDown, SearchIcon } from "./svgindex";
 
 const TextField = (props) => {
-  const [value, setValue] = useState(props.selectedVal ? props.selectedVal : "");
+  const [value, setValue] = useState(
+    props.selectedVal ? props.selectedVal : ""
+  );
 
   useEffect(() => {
     if (!props.keepNull)
-      if (props.selectedVal)
-        setValue(props.selectedVal)
-      else { setValue(""); props.setFilter("") }
+      if (props.selectedVal) setValue(props.selectedVal);
+      else {
+        setValue("");
+        props.setFilter("");
+      }
     else setValue("");
   }, [props.selectedVal, props.forceSet]);
 
@@ -33,19 +37,33 @@ const TextField = (props) => {
   /* Custom function to scroll and select in the dropdowns while using key up and down */
   const keyChange = (e) => {
     if (e.key == "ArrowDown") {
-      props.setOptionIndex((state) => (state + 1 == props.addProps.length ? 0 : state + 1));
+      props.setOptionIndex((state) =>
+        state + 1 == props.addProps.length ? 0 : state + 1
+      );
       if (props.addProps.currentIndex + 1 == props.addProps.length) {
-        e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollTo?.(0, 0);
+        e?.target?.parentElement?.parentElement?.children
+          ?.namedItem("jk-dropdown-unique")
+          ?.scrollTo?.(0, 0);
       } else {
-        props?.addProps?.currentIndex > 2 && e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollBy?.(0, 45);
+        props?.addProps?.currentIndex > 2 &&
+          e?.target?.parentElement?.parentElement?.children
+            ?.namedItem("jk-dropdown-unique")
+            ?.scrollBy?.(0, 45);
       }
       e.preventDefault();
     } else if (e.key == "ArrowUp") {
-      props.setOptionIndex((state) => (state !== 0 ? state - 1 : props.addProps.length - 1));
+      props.setOptionIndex((state) =>
+        state !== 0 ? state - 1 : props.addProps.length - 1
+      );
       if (props.addProps.currentIndex == 0) {
-        e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollTo?.(100000, 100000);
+        e?.target?.parentElement?.parentElement?.children
+          ?.namedItem("jk-dropdown-unique")
+          ?.scrollTo?.(100000, 100000);
       } else {
-        props?.addProps?.currentIndex > 2 && e?.target?.parentElement?.parentElement?.children?.namedItem("jk-dropdown-unique")?.scrollBy?.(0, -45);
+        props?.addProps?.currentIndex > 2 &&
+          e?.target?.parentElement?.parentElement?.children
+            ?.namedItem("jk-dropdown-unique")
+            ?.scrollBy?.(0, -45);
       }
       e.preventDefault();
     } else if (e.key == "Enter") {
@@ -89,7 +107,9 @@ const translateDummy = (text) => {
 const Dropdown = (props) => {
   const user_type = Digit.SessionStorage.get("userType");
   const [dropdownStatus, setDropdownStatus] = useState(false);
-  const [selectedOption, setSelectedOption] = useState(props.selected ? props.selected : null);
+  const [selectedOption, setSelectedOption] = useState(
+    props.selected ? props.selected : null
+  );
   const [filterVal, setFilterVal] = useState("");
   const [forceSet, setforceSet] = useState(0);
   const [optionIndex, setOptionIndex] = useState(-1);
@@ -143,31 +163,59 @@ const Dropdown = (props) => {
   }
 
   let filteredOption =
-    (props.option && props.option?.filter((option) => t(option[props.optionKey])?.toUpperCase()?.indexOf(filterVal?.toUpperCase()) > -1)) || [];
+    (props.option &&
+      props.option?.filter(
+        (option) =>
+          t(option[props.optionKey])
+            ?.toUpperCase()
+            ?.indexOf(filterVal?.toUpperCase()) > -1
+      )) ||
+    [];
   function selectOption(ind) {
     onSelect(filteredOption[ind]);
   }
 
   if (props.isBPAREG && selectedOption) {
-    let isSelectedSameAsOptions = props.option?.filter((ob) => ob?.code === selectedOption?.code)?.length > 0;
-    if (!isSelectedSameAsOptions) setSelectedOption(null)
+    let isSelectedSameAsOptions =
+      props.option?.filter((ob) => ob?.code === selectedOption?.code)?.length >
+      0;
+    if (!isSelectedSameAsOptions) setSelectedOption(null);
   }
 
   return (
     <div
-      className={`${user_type === "employee" ? "employee-select-wrap" : "select-wrap"} ${props?.className ? props?.className : ""}`}
+      className={`${
+        user_type === "employee" ? "employee-select-wrap" : "select-wrap"
+      } ${props?.className ? props?.className : ""}`}
       style={{ ...props.style }}
     >
       {hasCustomSelector && (
-        <div className={props.showArrow ? "cp flex-right column-gap-5" : "cp"} onClick={dropdownSwitch}>
+        <div
+          className={props.showArrow ? "cp flex-right column-gap-5" : "cp"}
+          onClick={dropdownSwitch}
+        >
           {props.customSelector}
-          {props.showArrow && <ArrowDown onClick={dropdownSwitch} className={props.disable && "disabled"} />}
+          {props.showArrow && (
+            <ArrowDown
+              onClick={dropdownSwitch}
+              className={props.disable && "disabled"}
+            />
+          )}
         </div>
       )}
       {!hasCustomSelector && (
         <div
-          className={`${dropdownStatus ? "select-active" : "select"} ${props.disable && "disabled"}`}
-          style={props.errorStyle ? { border: "1px solid red", ...(props.noBorder ? { "border": "none" } : {}) } : { ...(props.noBorder ? { "border": "none" } : {}) }}
+          className={`${dropdownStatus ? "select-active" : "select"} ${
+            props.disable && "disabled"
+          }`}
+          style={
+            props.errorStyle
+              ? {
+                  border: "1px solid red",
+                  ...(props.noBorder ? { border: "none" } : {}),
+                }
+              : { ...(props.noBorder ? { border: "none" } : {}) }
+          }
         >
           <TextField
             autoComplete={props.autoComplete}
@@ -181,14 +229,22 @@ const Dropdown = (props) => {
                 ? props.t
                   ? props.isMultiSelectEmp
                     ? `${selectedOption} ${t("BPA_SELECTED_TEXT")}`
-                    : props.t(props.optionKey ? selectedOption[props.optionKey] : selectedOption)
+                    : props.t(
+                        props.optionKey
+                          ? selectedOption[props.optionKey]
+                          : selectedOption
+                      )
                   : props.optionKey
-                    ? selectedOption[props.optionKey]
-                    : selectedOption
+                  ? selectedOption[props.optionKey]
+                  : selectedOption
                 : null
             }
             filterVal={filterVal}
-            addProps={{ length: filteredOption.length, currentIndex: optionIndex, selectOption: selectOption }}
+            addProps={{
+              length: filteredOption.length,
+              currentIndex: optionIndex,
+              selectOption: selectOption,
+            }}
             dropdownDisplay={dropdownOn}
             handleClick={handleClick}
             disable={props.disable}
@@ -198,15 +254,31 @@ const Dropdown = (props) => {
             onBlur={props?.onBlur}
             inputRef={props.ref}
           />
-          {props.showSearchIcon ? null : <ArrowDown onClick={dropdownSwitch} className="cp" disable={props.disable} />}
-          {props.showSearchIcon ? <SearchIcon onClick={dropdownSwitch} className="cp" disable={props.disable} /> : null}
+          {props.showSearchIcon ? null : (
+            <ArrowDown
+              onClick={dropdownSwitch}
+              className="cp"
+              disable={props.disable}
+            />
+          )}
+          {props.showSearchIcon ? (
+            <SearchIcon
+              onClick={dropdownSwitch}
+              className="cp"
+              disable={props.disable}
+            />
+          ) : null}
         </div>
       )}
       {dropdownStatus ? (
         props.optionKey ? (
           <div
             id="jk-dropdown-unique"
-            className={`${hasCustomSelector ? "margin-top-10 display: table" : ""} options-card ${props?.topbarOptionsClassName ? props?.topbarOptionsClassName : ""}`}
+            className={`${
+              hasCustomSelector ? "margin-top-10 display: table" : ""
+            } options-card ${
+              props?.topbarOptionsClassName ? props?.topbarOptionsClassName : ""
+            }`}
             style={{ ...props.optionCardStyles }}
             ref={optionRef}
           >
@@ -218,37 +290,68 @@ const Dropdown = (props) => {
                     style={
                       index === optionIndex
                         ? {
-                          opacity: 1,
-                          backgroundColor: "rgba(238, 238, 238, var(--bg-opacity))",
-                        }
+                            opacity: 1,
+                            backgroundColor:
+                              "rgba(238, 238, 238, var(--bg-opacity))",
+                          }
                         : {}
                     }
                     key={index}
                     onClick={() => onSelect(option)}
                   >
-                    {option.icon && <span className="icon"> {option.icon} </span>}
-                    {props.isPropertyAssess ? <div>{props.t ? props.t(option[props.optionKey]) : option[props.optionKey]}</div> :
-                      <span> {props.t ? props.t(option[props.optionKey]) : option[props.optionKey]}</span>}
+                    {option.icon && (
+                      <span className="icon"> {option.icon} </span>
+                    )}
+                    {props.isPropertyAssess ? (
+                      <div>
+                        {props.t
+                          ? props.t(option[props.optionKey])
+                          : option[props.optionKey]}
+                      </div>
+                    ) : (
+                      <span>
+                        {" "}
+                        {props.t
+                          ? props.t(option[props.optionKey])
+                          : option[props.optionKey]}
+                      </span>
+                    )}
                   </div>
                 );
               })}
             {filteredOption && filteredOption.length === 0 && (
-              <div className={`cp profile-dropdown--item display: flex `} key={"-1"} onClick={() => {
-
-              }}>
-                {<span> {props.t ? props.t("CMN_NOOPTION") : "CMN_NOOPTION"}</span>}
+              <div
+                className={`cp profile-dropdown--item display: flex `}
+                key={"-1"}
+                onClick={() => {}}
+              >
+                {
+                  <span>
+                    {" "}
+                    {props.t ? props.t("CMN_NOOPTION") : "CMN_NOOPTION"}
+                  </span>
+                }
               </div>
             )}
           </div>
         ) : (
           <div
             className="options-card"
-            style={{ ...props.optionCardStyles, overflow: "scroll", maxHeight: "350px" }}
+            style={{
+              ...props.optionCardStyles,
+              overflow: "scroll",
+              maxHeight: "350px",
+            }}
             id="jk-dropdown-unique"
             ref={optionRef}
           >
             {props.option
-              ?.filter((option) => option?.toUpperCase().indexOf(filterVal?.toUpperCase()) > -1)
+              .filter((option) => typeof option === "string") // Ensure option is a string
+              .filter((option) => {
+                // Check if filterVal is defined before applying toUpperCase()
+                const filterValue = filterVal ? filterVal.toUpperCase() : "";
+                return option.toUpperCase().indexOf(filterValue) > -1;
+              })
               .map((option, index) => {
                 return (
                   <p
@@ -256,9 +359,10 @@ const Dropdown = (props) => {
                     style={
                       index === optionIndex
                         ? {
-                          opacity: 1,
-                          backgroundColor: "rgba(238, 238, 238, var(--bg-opacity))",
-                        }
+                            opacity: 1,
+                            backgroundColor:
+                              "rgba(238, 238, 238, var(--bg-opacity))",
+                          }
                         : {}
                     }
                     onClick={() => onSelect(option)}

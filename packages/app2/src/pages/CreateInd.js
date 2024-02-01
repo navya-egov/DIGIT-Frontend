@@ -57,23 +57,23 @@ export const newConfig = [
       //     },
       //   },
       // },
-      {
-        isMandatory: true,
-        key: "genders",
-        type: "dropdown",
-        label: "Enter Gender",
-        disable: false,
-        populators: {
-          name: "genders",
-          options: [
-            { code: "MALE", name: "Male" },
-            { code: "FEMALE", name: "Female" },
-            // Add more options as needed
-          ],
-          error: "sample required message",
-          required: true,
-        },
-      },
+      // {
+      //   isMandatory: true,
+      //   key: "genders",
+      //   type: "dropdown",
+      //   label: "Enter Gender",
+      //   disable: false,
+      //   populators: {
+      //     name: "genders",
+      //     options: [
+      //       { code: "MALE", name: "Male" },
+      //       { code: "FEMALE", name: "Female" },
+      //       // Add more options as needed
+      //     ],
+      //     error: "sample required message",
+      //     required: true,
+      //   },
+      // },
 
       {
         label: "Phone number",
@@ -336,25 +336,39 @@ export const newConfig = [
   },
 ];
 
-const convertDateToEpoch = (dateString) => {
-  // Parse the date string in the format "dd/mm/yyyy"
-  const [day, month, year] = dateString.split("/");
+// const convertDateToEpoch = (dateString) => {
+//   // Parse the date string in the format "dd/mm/yyyy"
+//   const [day, month, year] = dateString.split("/");
 
-  // Create a Date object using the parsed components
-  const convertedDate = new Date(`${year}-${month}-${day}T00:00:00Z`);
+//   // Create a Date object using the parsed components
+//   const convertedDate = new Date(`${year}-${month}-${day}T00:00:00Z`);
 
-  // Check if the converted date is valid
-  if (isNaN(convertedDate.getTime())) {
-    console.error("Invalid date provided.");
-    return null;
+//   // Check if the converted date is valid
+//   if (isNaN(convertedDate.getTime())) {
+//     console.error("Invalid date provided.");
+//     return null;
+//   }
+
+//   // Convert the date to epoch time in seconds
+//   const epochTimeInSeconds = Math.floor(convertedDate.getTime() / 1000);
+
+//   return epochTimeInSeconds;
+// };
+export const convertDateToEpoch = (dateString, dayStartOrEnd = "dayend") => {
+  //example input format : "2018-10-02"
+  try {
+    const parts = dateString.match(/(\d{4})-(\d{1,2})-(\d{1,2})/);
+    const DateObj = new Date(Date.UTC(parts[1], parts[2] - 1, parts[3]));
+    DateObj.setMinutes(DateObj.getMinutes() + DateObj.getTimezoneOffset());
+    if (dayStartOrEnd === "dayend") {
+      DateObj.setHours(DateObj.getHours() + 24);
+      DateObj.setSeconds(DateObj.getSeconds() - 1);
+    }
+    return DateObj.getTime();
+  } catch (e) {
+    return dateString;
   }
-
-  // Convert the date to epoch time in seconds
-  const epochTimeInSeconds = Math.floor(convertedDate.getTime() / 1000);
-
-  return epochTimeInSeconds;
 };
-
 const Create = () => {
   // const tenantId = Digit.ULBService.getCurrentTenantId();
   // const { t } = useTranslation();
@@ -404,7 +418,7 @@ const Create = () => {
               givenName: data.applicantname,
             },
             dateOfBirth: null,
-            gender: data.genders.code,
+            // gender: data.genders.code,
             mobileNumber: data.phno,
             address: [
               {
